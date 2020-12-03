@@ -47,7 +47,6 @@
 ##### End Program 
 - Terminates the program.
     
-
 ## Instructions:
 1) Download files from this repository.
 2) Move these files into the MATLAB directory. For most users, this will be in C:\users\USERNAME\Documents\MATLAB . 
@@ -70,17 +69,6 @@
 - 2020-12-03 v1.0.0 - Live on GitHub!
 
 Last Updated: December 3rd, 2020
-
-## Roadmap:
-- Regional breakdown of recovered data
-- Information about Nunavut once it becomes avaliable
-- Regional breakdown of testing data.
-- Demographical breakdown based on age and other factors
-- 7 Day breakdown in addition to all time breakdown
-- Condition breakdown (Mild, Moderate, Severe, Critical)
-- Projections with the SIR Model or with the Our World in Data dataset
-- Move program into a MATLAB App
-- Others, feel free to suggest!
 
 ## Acknowledgements:
 Data Sources:
