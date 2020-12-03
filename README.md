@@ -6,15 +6,15 @@
 - Develop and grow my coding knowledge with MATLAB
 
 ## Introduction:
-This project started when I was a first year engineering student at the University of Alberta. In one of these courses, ENCMP 100 (Computer Programming for Engineers
+- This project started when I was a first year engineering student at the University of Alberta. In one of these courses, ENCMP 100 (Computer Programming for Engineers
 ), there was an optional programming contest. While developing this program for that contest, I gained more experience with MATLAB and project management. I will try and develop features listed on the roadmap when I am free from other obligations.
-Code written is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0). To view a copy of this license, visit (https://creativecommons.org/licenses/by-nc-sa/4.0/)
+- Code written is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0). To view a copy of this license, visit (https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
-To see where the data is sourced, please see the Acknowledgements section. 
-As my sources may change how their data is structured, my program may be left inaccurate or inoperable. If this is the case, please contact me immediately and I will attempt to patch any issues. This program functions as of the "Last Updated" date.
-This program also displays data that may be different from other sources of data. Methodology and timing may vary. Please view the sources directly if you wish to see their data-gathering practices and update frequency.
-Negative counts may appear in this data if there is a correction/change.
-If you wish to view the most accurate and up-to-date data, please consult government health ministries or other authoritative sources.
+- To see where the data is sourced, please see the Acknowledgements section. 
+- As my sources may change how their data is structured, my program may be left inaccurate or inoperable. If this is the case, please contact me immediately and I will attempt to patch any issues. This program functions as of the "Last Updated" date.
+- This program also displays data that may be different from other sources of data. Methodology and timing may vary. Please view the sources directly if you wish to see their data-gathering practices and update frequency.
+- Negative counts may appear in this data if there is a correction/change.
+- If you wish to view the most accurate and up-to-date data, please consult government health ministries or other authoritative sources.
 
 ## Features:    
 
@@ -76,7 +76,6 @@ Last Updated: December 3rd, 2020
 - Information about Nunavut once it becomes avaliable
 - Regional breakdown of testing data.
 - Demographical breakdown based on age and other factors
-
 - 7 Day breakdown in addition to all time breakdown
 - Condition breakdown (Mild, Moderate, Severe, Critical)
 - Projections with the SIR Model or with the Our World in Data dataset
@@ -90,7 +89,7 @@ Science and Engineering (CSSE) at Johns Hopkins University.
 https://github.com/CSSEGISandData/COVID-19.
 
 2) Hasell, J., Mathieu, E., Beltekian, D. et al. A cross-country database of COVID-19 testing. Sci Data 7, 345 (2020). https://doi.org/10.1038/s41597-020-00688-8
-
+https://github.com/owid/covid-19-data/tree/master/public/data
 
 ## Questions/Concerns?
 Please file an issue on this repository or contact me directly. 
