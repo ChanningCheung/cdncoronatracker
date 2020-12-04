@@ -1,6 +1,6 @@
 %{
 
-Canadian Coronavirus Tracker v1.0.0 | Channing Cheung
+Canadian Coronavirus Tracker v1.1.0 | Channing Cheung
 
 Objectives:
 -Entry to the ENCMP 100 Programming Contest (Fall 2020)
@@ -14,12 +14,11 @@ Science and Engineering (CSSE) at Johns Hopkins University.
 
 Hasell, J., Mathieu, E., Beltekian, D. et al. A cross-country database of COVID-19 testing. Sci Data 7, 345 (2020). https://doi.org/10.1038/s41597-020-00688-8
 
-Please read the README file for the full instructions, acknowledgements and
-contact information.
+Please read the README file for the full instructions, acknowledgements and contact information.
 
 %}
 
-function [] = cdn_covid_tracker_v1_0_0()
+function [] = cdn_corona_tracker_v1_1_0()
 clc;clear %Clear command window & workspace
 
 options = weboptions('Timeout',inf); %This fixes a potential error caused by timeout
@@ -58,14 +57,14 @@ websave(data2,urldata2,options);
 datatable2 = readtable('data.csv','ReadVariableNames',true,'PreserveVariableNames',true);
 
 program = 0; %Initializes variable
-disp('Welcome to the Canadian Coronavirus Tracker v1.0.0') %Displays welcome information
+disp('Welcome to the Canadian Coronavirus Tracker v1.1.0') %Displays welcome information
 disp(' ')
 disp('Please view the README file for the full instructions, acknowledgements and additional information.')
 
 %Program loops so user can interact with menu until they click End Program
 while program < 13
     %displays menu options
-    program = menu('Canadian Coronavirus Tracker v1.0.0', 'Total Cases: Regional Breakdown','New Cases: Regional Breakdown','Active Cases Timeline','Total Deaths: Regional Breakdown','New Deaths: Regional Breakdown','Recovered Cases Timeline','Daily Change in Recovered Cases Timeline','Total Tests Distributed Timeline','Daily Change in Tests Distributed Timeline','World Case Comparison','World Death Comparison','Open README.txt','End Program ');
+    program = menu('Canadian Coronavirus Tracker v1.1.0', 'Total Cases: Regional Breakdown','New Cases: Regional Breakdown','Active Cases Timeline','Total Deaths: Regional Breakdown','New Deaths: Regional Breakdown','Recovered Cases Timeline','Daily Change in Recovered Cases Timeline','Total Tests Distributed Timeline','Daily Change in Tests Distributed Timeline','World Case Comparison','World Death Comparison','Open README.txt','End Program ');
     
     %Close all figures regardless of case
     %Each case # corresponds to a different set of data
@@ -117,10 +116,10 @@ function confirmedcases(casetable)
 
 region = findgroups(casetable.('Country/Region')); %Assigns each country a group number
 cdntable = casetable(region==33,:); %Canada is #33 on the list, filters out other countries
-regiontable = cdntable([1 2 5:14],:); %Filters out Diamond Princess and Grand Princess from data
+regiontable = cdntable([1 2 5:16],:); %Filters out Diamond Princess and Grand Princess from data
 regiontable = removevars(regiontable,'Country/Region'); %Filters out unnecessary columns
 regiontable = rows2vars(regiontable); %flip to make converting dates easier
-regiontable = renamevars(regiontable,["Var1","Var2","Var3","Var4","Var5","Var6","Var7","Var8","Var9","Var10","Var11","Var12"],["Alberta","British Columbia","Manitoba","New Brunswick","Newfoundland and Labrador","Northwest Territories","Nova Scotia","Ontario","Prince Edward Island","Quebec","Saskatchewan","Yukon"]); %rename variables
+regiontable = renamevars(regiontable,["Var1","Var2","Var3","Var4","Var5","Var6","Var7","Var8","Var9","Var10","Var11","Var12","Var13","Var14"],["Alberta","British Columbia","Manitoba","New Brunswick","Newfoundland and Labrador","Northwest Territories","Nova Scotia","Nunavut","Ontario","Prince Edward Island","Quebec","Repatraited Travellers","Saskatchewan","Yukon"]); %rename variables
 regiontable(1,:) = []; %remove 1st row
 regiontable.date = datetime(regiontable{:,1}, 'format', 'yyyy-MM-dd'); %Converts to matlab's date format
 regiontable.date = regiontable.date + years(2000); %Add 2000 years so it displays as 2020 and not 0020
@@ -135,17 +134,17 @@ legend(labels,'Location','northeastoutside') %formatting for graph
 title('Total COVID 19 Cases in Canada');
 xlabel('Date');
 ylabel('Confirmed Cases');
-
+ylim([0 inf]) %Initial display only shows positive data for better visibility, negative data (corrections) can be viewed by panning
 end
 
 function confirmeddeaths(deathtable)
 
 region = findgroups(deathtable.('Country/Region')); %Assigns each country a group number
 cdntable = deathtable(region==33,:); %Canada is #33 on the list, filters out other countries
-regiontable = cdntable([1 2 5:14],:); %Filters out Diamond Princess and Grand Princess from data
+regiontable = cdntable([1 2 5:16],:); %Filters out Diamond Princess and Grand Princess from data
 regiontable = removevars(regiontable,'Country/Region'); %Filters out unnecessary columns
 regiontable = rows2vars(regiontable); %flip to make converting dates easier
-regiontable = renamevars(regiontable,["Var1","Var2","Var3","Var4","Var5","Var6","Var7","Var8","Var9","Var10","Var11","Var12"],["Alberta","British Columbia","Manitoba","New Brunswick","Newfoundland and Labrador","Northwest Territories","Nova Scotia","Ontario","Prince Edward Island","Quebec","Saskatchewan","Yukon"]); %rename variables
+regiontable = renamevars(regiontable,["Var1","Var2","Var3","Var4","Var5","Var6","Var7","Var8","Var9","Var10","Var11","Var12","Var13","Var14"],["Alberta","British Columbia","Manitoba","New Brunswick","Newfoundland and Labrador","Northwest Territories","Nova Scotia","Nunavut","Ontario","Prince Edward Island","Quebec","Repatraited Travellers","Saskatchewan","Yukon"]); %rename variables
 regiontable(1,:) = []; %remove 1st row
 regiontable.date = datetime(regiontable{:,1}, 'format', 'yyyy-MM-dd'); %Converts to matlab's date format
 regiontable.date = regiontable.date + years(2000); %Add 2000 years so it displays as 2020 and not 0020
@@ -160,7 +159,7 @@ legend(labels,'Location','northeastoutside') %formatting for graph
 title('Total COVID 19 Deaths in Canada');
 xlabel('Date');
 ylabel('Confirmed Deaths');
-
+ylim([0 inf]) %Initial display only shows positive data for better visibility, negative data (corrections) can be viewed by panning
 end
 
 function recoveredcases(recoveredtable)
@@ -180,25 +179,25 @@ plot(datearray,cell2mat(regioncell(:,2:end))); %plots graph
 title('Total COVID 19 Recovered in Canada'); %formatting for graph
 xlabel('Date');
 ylabel('Confirmed Recovered');
-
+ylim([0 inf]) %Initial display only shows positive data for better visibility, negative data (corrections) can be viewed by panning
 end
 
 function activecases(casetable,deathtable,recoveredtable)
 
 region = findgroups(casetable.('Country/Region')); %Assigns each country a group number
 cdntable = casetable(region==33,:); %Canada is #33 on the list, filters out other countries
-regiontable = cdntable([1 2 5:14],:); %Filters out Diamond Princess and Grand Princess from data
+regiontable = cdntable([1 2 5:16],:); %Filters out Diamond Princess and Grand Princess from data
 regiontable = removevars(regiontable,{'Country/Region','Province/State'}); %Filters out unnecessary columns
 regiontable = rows2vars(regiontable); %As recovered cases is not sorted by country, must merge provincial data into one column to conform with it
-regiontable.totalconfirmed = regiontable.Var1 + regiontable.Var2 + regiontable.Var3 + regiontable.Var4 + regiontable.Var5 + regiontable.Var6 + regiontable.Var7 + regiontable.Var8 + regiontable.Var9 + regiontable.Var10 + regiontable.Var11 + regiontable.Var12; %forms national data
-regiontable = removevars(regiontable,{'Var1','Var2','Var3','Var4','Var5','Var6','Var7','Var8','Var9','Var10','Var11','Var12'}); %remove unneeded columns
+regiontable.totalconfirmed = regiontable.Var1 + regiontable.Var2 + regiontable.Var3 + regiontable.Var4 + regiontable.Var5 + regiontable.Var6 + regiontable.Var7 + regiontable.Var8 + regiontable.Var9 + regiontable.Var10 + regiontable.Var11 + regiontable.Var12 + regiontable.Var13 + regiontable.Var14; %forms national data
+regiontable = removevars(regiontable,{'Var1','Var2','Var3','Var4','Var5','Var6','Var7','Var8','Var9','Var10','Var11','Var12','Var13','Var14'}); %remove unneeded columns
 regiond = findgroups(deathtable.('Country/Region')); %Assigns each country a group number
 cdndtable = deathtable(regiond==33,:); %Canada is #33 on the list, filters out other countries
-regiondtable = cdndtable([1 2 5:14],:); %Filters out Diamond Princess and Grand Princess from data
+regiondtable = cdndtable([1 2 5:16],:); %Filters out Diamond Princess and Grand Princess from data
 regiondtable = removevars(regiondtable,{'Country/Region','Province/State'}); %Filters out unnecessary columns
 regiondtable = rows2vars(regiondtable); %As recovered cases is not sorted by country, must merge provincial data into one column to conform with it
-regiondtable.totaldeaths = regiondtable.Var1 + regiondtable.Var2 + regiondtable.Var3 + regiondtable.Var4 + regiondtable.Var5 + regiondtable.Var6 + regiondtable.Var7 + regiondtable.Var8 + regiondtable.Var9 + regiondtable.Var10 + regiondtable.Var11 + regiondtable.Var12; %forms national data
-regiondtable = removevars(regiondtable,{'Var1','Var2','Var3','Var4','Var5','Var6','Var7','Var8','Var9','Var10','Var11','Var12'}); %remove unneeded columns
+regiondtable.totaldeaths = regiondtable.Var1 + regiondtable.Var2 + regiondtable.Var3 + regiondtable.Var4 + regiondtable.Var5 + regiondtable.Var6 + regiondtable.Var7 + regiondtable.Var8 + regiondtable.Var9 + regiondtable.Var10 + regiondtable.Var11 + regiondtable.Var12 + regiondtable.Var13 + regiondtable.Var14; %forms national data
+regiondtable = removevars(regiondtable,{'Var1','Var2','Var3','Var4','Var5','Var6','Var7','Var8','Var9','Var10','Var11','Var12','Var13','Var14'}); %remove unneeded columns
 regionr = findgroups(recoveredtable.('Country/Region')); %Assigns each country a group number
 cdnrtable = recoveredtable(regionr==33,:); %Canada is #33 on the list, filters out other countries
 regionrtable = removevars(cdnrtable,{'Country/Region','Province/State'}); %Filters out unnecessary columns
@@ -215,21 +214,21 @@ plot(activetable.date, activetable.ActiveCases); %plots graph
 title('Active COVID 19 Cases in Canada'); %formatting for graph
 xlabel('Date');
 ylabel('Active Cases');
-
+ylim([0 inf]) %Initial display only shows positive data for better visibility, negative data (corrections) can be viewed by panning
 end
 
 function newcases(casetable)
 
 region = findgroups(casetable.('Country/Region')); %Assigns each country a group number
 cdntable = casetable(region==33,:); %Canada is #33 on the list, filters out other countries
-regiontable = cdntable([1 2 5:14],:); %Filters out Diamond Princess and Grand Princess from data
+regiontable = cdntable([1 2 5:16],:); %Filters out Diamond Princess and Grand Princess from data
 regiontable = removevars(regiontable,'Country/Region'); %Filters out unnecessary columns
 newtable = diff(regiontable{:,2:end},[],2); %finds the difference in columns
 newtable = table(regiontable.('Province/State'),newtable); %creates a new table that saves variable names (dates, etc) from old table
 newtable = splitvars(newtable);
 newtable.Properties.VariableNames = regiontable.Properties.VariableNames([1,3:end]);
 newtable = rows2vars(newtable); %flips to make converting dates easier
-newtable = renamevars(newtable,["Var1","Var2","Var3","Var4","Var5","Var6","Var7","Var8","Var9","Var10","Var11","Var12"],["Alberta","British Columbia","Manitoba","New Brunswick","Newfoundland and Labrador","Northwest Territories","Nova Scotia","Ontario","Prince Edward Island","Quebec","Saskatchewan","Yukon"]);
+newtable = renamevars(newtable,["Var1","Var2","Var3","Var4","Var5","Var6","Var7","Var8","Var9","Var10","Var11","Var12","Var13","Var14"],["Alberta","British Columbia","Manitoba","New Brunswick","Newfoundland and Labrador","Northwest Territories","Nova Scotia","Nunavut","Ontario","Prince Edward Island","Quebec","Repatraited Travellers","Saskatchewan","Yukon"]); %rename variables
 newtable(1,:) = []; %remove 1st row
 newtable.date = datetime(newtable{:,1}, 'format', 'yyyy-MM-dd'); %Converts to matlab's date format
 newtable.date = newtable.date + years(2000); %Add 2000 years so it displays as 2020 and not 0020
@@ -244,21 +243,21 @@ legend(labels,'Location','northeastoutside') %formatting for graph
 title('New COVID 19 Cases in Canada');
 xlabel('Date');
 ylabel('Confirmed Cases');
-
+ylim([0 inf]) %Initial display only shows positive data for better visibility, negative data (corrections) can be viewed by panning
 end
 
 function newdeaths(deathtable)
 
 region = findgroups(deathtable.('Country/Region')); %Assigns each country a group number
 cdntable = deathtable(region==33,:); %Canada is #33 on the list, filters out other countries
-regiontable = cdntable([1 2 5:14],:); %Filters out Diamond Princess and Grand Princess from data
+regiontable = cdntable([1 2 5:16],:); %Filters out Diamond Princess and Grand Princess from data
 regiontable = removevars(regiontable,'Country/Region'); %Filters out unnecessary columns
 newtable = diff(regiontable{:,2:end},[],2); %finds the difference in columns
 newtable = table(regiontable.('Province/State'),newtable); %creates a new table that saves variable names (dates, etc) from old table
 newtable = splitvars(newtable);
 newtable.Properties.VariableNames = regiontable.Properties.VariableNames([1,3:end]);
 newtable = rows2vars(newtable);
-newtable = renamevars(newtable,["Var1","Var2","Var3","Var4","Var5","Var6","Var7","Var8","Var9","Var10","Var11","Var12"],["Alberta","British Columbia","Manitoba","New Brunswick","Newfoundland and Labrador","Northwest Territories","Nova Scotia","Ontario","Prince Edward Island","Quebec","Saskatchewan","Yukon"]);
+newtable = renamevars(newtable,["Var1","Var2","Var3","Var4","Var5","Var6","Var7","Var8","Var9","Var10","Var11","Var12","Var13","Var14"],["Alberta","British Columbia","Manitoba","New Brunswick","Newfoundland and Labrador","Northwest Territories","Nova Scotia","Nunavut","Ontario","Prince Edward Island","Quebec","Repatraited Travellers","Saskatchewan","Yukon"]); %rename variables
 newtable(1,:) = []; %remove 1st row
 newtable.date = datetime(newtable{:,1}, 'format', 'yyyy-MM-dd'); %Converts to matlab's date format
 newtable.date = newtable.date + years(2000); %Add 2000 years so it displays as 2020 and not 0020
@@ -273,7 +272,7 @@ legend(labels,'Location','northeastoutside') %formatting for graph
 title('New COVID 19 Deaths in Canada');
 xlabel('Date');
 ylabel('Confirmed Deaths');
-
+ylim([0 inf]) %Initial display only shows positive data for better visibility, negative data (corrections) can be viewed by panning
 end
 
 function newrecovered(recoveredtable)
@@ -301,7 +300,7 @@ legend(labels,'Location','northeastoutside') %formatting for graph
 title('New COVID 19 Recovered in Canada');
 xlabel('Date');
 ylabel('Confirmed Recovered');
-
+ylim([0 inf]) %Initial display only shows positive data for better visibility, negative data (corrections) can be viewed by panning
 end
 
 function tests(datatable2)
@@ -317,7 +316,7 @@ plot(datearray,cell2mat(newcell(:,2:end))); %plots graph
 title('Tests Done in Canada'); %formatting for graph
 xlabel('Date');
 ylabel('Number of Tests');
-
+ylim([0 inf]) %Initial display only shows positive data for better visibility, negative data (corrections) can be viewed by panning
 end
 
 function newtests(datatable2)
@@ -333,53 +332,51 @@ plot(datearray,cell2mat(newcell(:,2:end))); %plots graph
 title('Tests Done in Canada'); %formatting for graph
 xlabel('Date');
 ylabel('New Tests');
-
+ylim([0 inf]) %Initial display only shows positive data for better visibility, negative data (corrections) can be viewed by panning
 end
 
 function cdncomp(datatable2)
 
-%Grab results from today
+%Grab results from yesterday
 datatable2.date = datetime(datatable2{:,4}, 'format', 'yyyy-MM-dd');
 datatable2 = movevars(datatable2,'date','Before',1);
-datatable2(~ismember(datatable2.date,datetime('today')),:) = [];
+datatable2(~ismember(datatable2.date,datetime('yesterday')),:) = [];
 datatable2 = datatable2(:,[4 5]); %Grab total case data
 datatable2 = rmmissing(datatable2); %remove any NaN
 location = find(strcmp('Canada',datatable2{:,1})); %locates Canada's data
 cdn = datatable2(location,:);
 datatable2 = sortrows(datatable2,'total_cases'); %sorts by total cases
-top5 = datatable2([end-5 end-4 end-3 end-2 end-1],:); %Gets the top 5 countries
+top10 = datatable2([end-10 end-9 end-8 end-7 end-6 end-5 end-4 end-3 end-2 end-1],:); %Gets the top 10 countries
 world = datatable2([end],:); %Gets world cases
-rest = {'Rest of World',table2array(world(:,2)) - table2array(cdn(:,2)) - sum(table2array(top5(:,2)))}; %Calculates cases that are not in Canada/Top5 Countries
-top5 = [table2cell(top5); table2cell(cdn); rest]; %merges data
-top5num = cell2mat(top5(:,2)); %prepares data for plotting
-labels = top5(:,1); %Grabs labels
-pie(top5num); %plots chart
-legend(labels) %formatting for chart'
+rest = {'Rest of World',table2array(world(:,2)) - table2array(cdn(:,2)) - sum(table2array(top10(:,2)))}; %Calculates cases that are not in Canada/Top 10 Countries
+top10 = [table2cell(top10); table2cell(cdn); rest]; %merges data
+top10num = cell2mat(top10(:,2)); %prepares data for plotting
+labels = top10(:,1); %Grabs labels
+pie(top10num); %plots chart
+legend(labels,'Location','northeastoutside') %formatting for chart
 total = table2array(world(:,2));
-title(['Case Distribution | Total World Cases: ' num2str(total) ' on ' datestr(datetime('today'))''])
-
+title(['Case Distribution | Total World Cases: ' num2str(total)])
 end
 
 function cdncompd(datatable2)
 
-%Grab results from today
+%Grab results from yesterday
 datatable2.date = datetime(datatable2{:,4}, 'format', 'yyyy-MM-dd');
 datatable2 = movevars(datatable2,'date','Before',1);
-datatable2(~ismember(datatable2.date,datetime('today')),:) = [];
+datatable2(~ismember(datatable2.date,datetime('yesterday')),:) = [];
 datatable2 = datatable2(:,[4 8]);
 datatable2 = rmmissing(datatable2);
 location = find(strcmp('Canada',datatable2{:,1}));
 cdn = datatable2(location,:);
 datatable2 = sortrows(datatable2,'total_deaths');
-top5 = datatable2([end-5 end-4 end-3 end-2 end-1],:);
+top10 = datatable2([end-10 end-9 end-8 end-7 end-6 end-5 end-4 end-3 end-2 end-1],:);
 world = datatable2(end,:);
-rest = {'Rest of World',table2array(world(:,2)) - table2array(cdn(:,2)) - sum(table2array(top5(:,2)))};
-top5 = [table2cell(top5); table2cell(cdn); rest];
-top5num = cell2mat(top5(:,2));
-labels = top5(:,1); %Grabs labels
+rest = {'Rest of World',table2array(world(:,2)) - table2array(cdn(:,2)) - sum(table2array(top10(:,2)))};
+top10 = [table2cell(top10); table2cell(cdn); rest];
+top5num = cell2mat(top10(:,2));
+labels = top10(:,1); %Grabs labels
 pie(top5num) %plots chart
-legend(labels) %formatting for chart
+legend(labels,'Location','northeastoutside') %formatting for chart
 total = table2array(world(:,2));
-title(['Death Distribution | Total World Deaths: ' num2str(total) ' on ' datestr(datetime('today'))''])
-
+title(['Death Distribution | Total World Deaths: ' num2str(total)])
 end
