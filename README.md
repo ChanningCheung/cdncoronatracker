@@ -31,7 +31,7 @@
 - Graph displays all recovered cases
 ##### Daily Change in Recovered Cases 
 - Graph displays the daily change in recovered cases
-##### Total People Testes 
+##### Total People Tested
 - Graph displays tests distributed
 ##### Daily Change in People Tested
 - Graph displays the daily change in tests
