@@ -15,7 +15,7 @@ Hasell, J., Mathieu, E., Beltekian, D. et al. A cross-country database of COVID-
 Please read the README file for the full instructions, acknowledgements and contact information.
 %}
 
-function [] = cdn_corona_tracker_v1_2_0()
+function [] = cdn_corona_tracker_v1_2_1()
 clc;clear %Clear command window & workspace
 options = weboptions('Timeout',inf); %This fixes a potential error caused by timeout
 
@@ -53,28 +53,28 @@ websave(data2,urldata2,options);
 datatable2 = readtable('data.csv','ReadVariableNames',true,'PreserveVariableNames',true);
 
 program = 0; %Initializes variable
-disp('Welcome to the Canadian Coronavirus Tracker v1.2.0') %Displays welcome information
+disp('Welcome to the Canadian Coronavirus Tracker v1.2.1') %Displays welcome information
 disp(' ')
-disp('Please view the README file for the full instructions, acknowledgements and additional information.')
+disp('Please click on the Information button to view the README.txt file for the full instructions, acknowledgements and additional details.')
 disp(' ')
 
 %Program loops so user can interact with menu until they click End Program
 while program < 13
     %displays menu options
-    program = menu('Canadian Coronavirus Tracker v1.2.0', 'Total Cases: Regional Breakdown','New Cases: Regional Breakdown','Active Cases Timeline','Total Deaths: Regional Breakdown','New Deaths: Regional Breakdown','Recovered Cases Timeline','Daily Change in Recovered Cases Timeline','Total Tests Distributed Timeline','Daily Change in Tests Distributed Timeline','World Case Comparison','World Death Comparison','Open README.txt','End Program ');
+    program = menu('Canadian Coronavirus Tracker v1.2.1', 'Total Cases','Daily Change in Cases','Active Cases','Total Deaths','Daily Change in Deaths','Recovered Cases','Daily Change in Recovered Cases','Total People Tested','Daily Change in People Tested','World Case Comparison','World Death Comparison','Information','End Program ');
     %Close all figures regardless of case
     %Each case # corresponds to a different set of data
     switch program
         case 1
             close all
-            ylb = 'Confirmed Cases'; %Sets specific y-label, title and selection to be used later
-            ttl = 'Total COVID 19 Cases in Canada';
+            ylb = 'Count of Total Cases'; %Sets specific y-label, title and selection to be used later
+            ttl = 'Total COVID-19 Cases in Canada';
             sel = 1;
             confirmed(casetable,ylb,ttl,sel); %Calls confirmed cases
         case 2
             close all
-            ttl = 'New COVID 19 Cases in Canada'; %Sets specific y-label, title and selection to be used later
-            ylb = 'Confirmed Cases';
+            ylb = 'Count of Confirmed Cases';
+            ttl = 'Daily Change in the Number of Cases'; %Sets specific y-label, title and selection to be used later
             sel = 1;
             new(casetable,ylb,ttl,sel); %Calls new cases
         case 3
@@ -82,38 +82,40 @@ while program < 13
             activecases(casetable,deathtable,recoveredtable); %Calls active cases
         case 4
             close all
-            ylb = 'Confirmed Deaths'; %Sets specific y-label, title and selection to be used later
-            ttl = 'Total COVID 19 Deaths in Canada';
+            ylb = 'Count of Total Deaths'; %Sets specific y-label, title and selection to be used later
+            ttl = 'Total COVID-19 Deaths in Canada';
             sel = 1;
             confirmed(deathtable,ylb,ttl,sel); %Calls confirmed deaths
         case 5
             close all
-            ttl = 'New COVID 19 Deaths in Canada'; %Sets specific y-label, title and selection to be used later
-            ylb = 'Confirmed Deaths';
+            ylb = 'Count of Confirmed Deaths';
+            ttl = 'Daily Change in the Number of Deaths'; %Sets specific y-label, title and selection to be used later
             sel = 1;
             new(deathtable,ylb,ttl,sel); %Calls new deaths
         case 6
             close all
-            ylb = 'Confirmed Recovered'; %Sets specific y-label, title and selection to be used later
-            ttl = 'Total COVID 19 Recovered in Canada';
+            ylb = 'Count of Total Recovered'; %Sets specific y-label, title and selection to be used later
+            ttl = 'Total COVID-19 Recovered in Canada';
             sel = 2;
             confirmed(recoveredtable,ylb,ttl,sel); %Calls confirmed recovered
         case 7
             close all
-            ylb = 'Confirmed Recovered'; %Sets specific y-label, title and selection to be used later
-            ttl = 'New COVID 19 Recovered in Canada';
+            ylb = 'Count of Confirmed Recovered'; %Sets specific y-label, title and selection to be used later
+            ttl = 'Daily Change in the Number of People Recovered';
             sel = 2;
             new(recoveredtable,ylb,ttl,sel); %Calls new recovered
         case 8
             close all
-            ylb = 'Number of Tests'; %Sets specific y-label and number to grab from
+            ylb = 'Count of Total People Tested'; %Sets specific y-label,title and number to grab from
+            ttl = 'Total Tests in Canada';
             num = 26;
-            tests(datatable2,ylb,num); %Calls tests completed
+            tests(datatable2,ylb,ttl,num); %Calls tests completed
         case 9
             close all
-            ylb = 'New Tests'; %Sets specific y-label and number to grab from
+            ylb = 'Count of People Tested'; %Sets specific y-label,title and number to grab from
+            ttl = 'Daily Change in the Number of People Tested';
             num = 27;
-            tests(datatable2,ylb,num) %Calls new tests
+            tests(datatable2,ylb,ttl,num) %Calls new tests
         case 10
             close all
             num = 5; %Sets specific number to grab from, title name and column variable name
@@ -136,7 +138,7 @@ while program < 13
 end
 end
 
-function confirmed(tb,ttl,ylb,sel)
+function confirmed(tb,ylb,ttl,sel)
 region = findgroups(tb.('Country/Region')); %Assigns each country a group number
 cdntable = tb(region==33,:); %Canada is #33 on the list, filters out other countries
 if sel == 1 %Action based on selection number set above
@@ -163,12 +165,12 @@ if sel == 1
     legend(labels,'Location','northeastoutside') %formatting for graph
 end
 ylim([0 inf]) %Initial display only shows positive data for better visibility, negative data (corrections) can be viewed by panning
-xlabel('Date'); %Graph formatting
+xlabel('Reporting Date'); %Graph formatting
 ylabel(ylb);
 title(ttl);
 end
 
-function tests(datatable2,ylb,num)
+function tests(datatable2,ylb,ttl,num)
 datatable2.date = datetime(datatable2{:,4}, 'format', 'yyyy-MM-dd'); %Converts to matlab's date format
 datatable2 = movevars(datatable2,'date','Before',1); %moves date to front
 datatable2(~ismember(datatable2.location,'Canada'),:) = []; %Gets only Canadian data
@@ -177,8 +179,8 @@ datatable2 = rmmissing(datatable2); %remove any NaN
 newcell = table2cell(datatable2); %Convert to cell to get date array
 datearray = datetime(table2array(datatable2(:,1))); %date array for x-axis
 plot(datearray,cell2mat(newcell(:,2:end))); %plots graph
-title('Tests Done in Canada'); %formatting for graph
-xlabel('Date');
+title(ttl); %formatting for graph
+xlabel('Reporting Date');
 ylabel(ylb);
 ylim([0 inf]) %Initial display only shows positive data for better visibility, negative data (corrections) can be viewed by panning
 end
@@ -201,7 +203,7 @@ labels = top10(:,1); %Grabs labels
 pie(top10num); %plots chart
 legend(labels,'Location','northeastoutside') %formatting for chart
 total = table2array(world(:,2)); %Calculates all cases
-title(['Case Distribution | Total World ' ttl ': ' num2str(total)]) %title format
+title([ttl ' Distribution | Total World ' ttl ': ' num2str(total)]) %title format
 end
 
 function new(tb,ylb,ttl,sel)
@@ -239,8 +241,8 @@ if sel == 1
     legend(labels,'Location','northeastoutside') %formatting for graph
 end
 title(ttl); %Graph formatting
-xlabel(ylb);
-ylabel('Confirmed Deaths');
+xlabel('Reporting Date');
+ylabel(ylb);
 ylim([0 inf]) %Initial display only shows positive data for better visibility, negative data (corrections) can be viewed by panning
 end
 
@@ -272,8 +274,8 @@ activetable.date = activetable.date + years(2000); %Add 2000 years so it display
 activetable = removevars(activetable,{'totalconfirmed','totaldeaths','totalrecovered','OriginalVariableNames'}); %remove excess columns
 activetable = activetable(:,[2 1]); %switch order of columns
 plot(activetable.date, activetable.ActiveCases); %plots graph
-title('Active COVID 19 Cases in Canada'); %formatting for graph
-xlabel('Date');
-ylabel('Active Cases');
+title('Active Cases of COVID-19 in Canada'); %formatting for graph
+xlabel('Reporting Date');
+ylabel('Count of Active Cases');
 ylim([0 inf]) %Initial display only shows positive data for better visibility, negative data (corrections) can be viewed by panning
 end
