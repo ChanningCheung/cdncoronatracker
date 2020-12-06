@@ -1,5 +1,5 @@
 %{
-Canadian Coronavirus Tracker v1.2.0 | Channing Cheung
+Canadian Coronavirus Tracker v1.2.1 | Channing Cheung
 
 Objectives:
 -Entry to the ENCMP 100 Programming Contest (Fall 2020)
