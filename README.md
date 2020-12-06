@@ -1,4 +1,4 @@
-# Canadian Coronavirus Tracker v1.2.0 | Channing Cheung
+# Canadian Coronavirus Tracker v1.2.1 | Channing Cheung
 
 ## Objectives:
 - Entry to the ENCMP 100 Programming Contest (Fall 2020)
@@ -6,8 +6,7 @@
 - Develop and grow my coding knowledge with MATLAB
 
 ## Introduction:
-- This project started when I was a first-year engineering student at the University of Alberta. In one of these courses, ENCMP 100 (Computer Programming for Engineers
-), there was an optional programming contest. While developing this program for that contest, I gained more experience with MATLAB and project management. I will try and develop the features listed on the roadmap when I am free from other obligations.
+- This project started when I was a first-year engineering student at the University of Alberta. In one of these courses, ENCMP 100 (Computer Programming for Engineers), there was an optional programming contest. While developing this program for that contest, I gained more experience with MATLAB and project management. I will try and develop the features listed on the roadmap when I am free from other obligations.
 - Code written is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0). To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 - To see where the data is sourced, please see the Acknowledgements section. 
@@ -18,23 +17,23 @@
 
 ## Features:    
 
-##### Total Cases: Regional Breakdown
+##### Total Cases
 - Graph displays a regional breakdown of confirmed and probable cases
-##### New Cases: Regional Breakdown
+##### Daily Change in Cases
 - Graph displays a regional breakdown of the daily change in confirmed and probable cases 
-##### Active Cases Timeline
+##### Active Cases 
 - Graph displays all active cases 
-##### Total Deaths: Regional Breakdown
+##### Total Deaths
 - Graph displays a regional breakdown of confirmed deaths 
-##### New Deaths: Regional Breakdown
+##### Daily Change in Deaths
 - Graph displays a regional breakdown of the daily change in confirmed deaths
-##### Recovered Cases Timeline
+##### Recovered Cases 
 - Graph displays all recovered cases
-##### Daily Change in Recovered Cases Timeline
+##### Daily Change in Recovered Cases 
 - Graph displays the daily change in recovered cases
-##### Total Tests Distributed Timeline
+##### Total People Testes 
 - Graph displays tests distributed
-##### Daily Change in Tests Distributed Timeline
+##### Daily Change in People Tested
 - Graph displays the daily change in tests
 ##### World Case Comparison
 - Pie Chart compares Canada's total cases with the top 10 countries and the rest of the world
@@ -42,8 +41,8 @@
 ##### World Death Comparison
 - Pie Chart compares Canada's total deaths with the top 10 countries and the rest of the world
 - Also displays the total world deaths
-##### Open README.txt
-- Displays this Document in the Command Window.
+##### Information
+- Displays the README.txt file in the Command Window.
 ##### End Program 
 - Terminates the program.
     
@@ -69,8 +68,9 @@
 - 2020-12-03 v1.0.0 - Live on GitHub!
 - 2020-12-03 v1.1.0 - Fixed bugs, adjusted top 5 to top 10, added Nunavut data, and Repatriated data to regional breakdowns
 - 2020-12-03 v1.2.0 - Reduced amount of code necessary to complete functions
+- 2020-12-05 v1.2.1 - Fixed bugs, relabelled graphs for consistency
 
-Last Updated: December 3rd, 2020
+Last Updated: December 5th, 2020
 
 ## Acknowledgements:
 Data Sources:
