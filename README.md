@@ -81,6 +81,12 @@ https://github.com/CSSEGISandData/COVID-19.
 2) Hasell, J., Mathieu, E., Beltekian, D. et al. A cross-country database of COVID-19 testing. Sci Data 7, 345 (2020). https://doi.org/10.1038/s41597-020-00688-8
 https://github.com/owid/covid-19-data/tree/master/public/data
 
+My Beta Testers:
+- Evan Hartnell
+- Bridgette Diala
+- Elwin George Joechim
+
+
 ## Questions/Concerns?
 Please file an issue on this repository or contact me directly. 
 
