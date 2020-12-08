@@ -85,6 +85,7 @@ My Beta Testers:
 - Evan Hartnell
 - Bridgette Diala
 - Elwin George Joechim
+- Thomas Miedema
 
 
 ## Questions/Concerns?
